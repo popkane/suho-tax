@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>모바일 미리보기 | 수호세무회계</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  :root { --bg: #e9e7e2; --ink: #161a26; --muted: #6a6f7b; --deep: #0d1230; --gold: #b39a6c; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Pretendard Variable", Pretendard, "Malgun Gothic", sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; }
+  .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; padding: 18px 16px 6px; }
+  .bar strong { font-size: 15px; margin-right: 8px; }
+  .bar button, .bar a {
+    font: inherit; font-size: 13.5px; font-weight: 600; padding: 8px 14px; border-radius: 20px;
+    border: 1px solid #c9c5bc; background: #fff; color: var(--ink); cursor: pointer; text-decoration: none;
+  }
+  .bar button.on { background: var(--deep); border-color: var(--deep); color: #fff; }
+  .stage { display: flex; justify-content: center; padding: 18px 16px 40px; }
+  .phone {
+    background: #111; border-radius: 48px; padding: 14px;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,.45), inset 0 0 0 2px #333;
+    transition: width .3s;
+  }
+  .screen { position: relative; border-radius: 36px; overflow: hidden; background: #fff; }
+  .screen iframe { display: block; border: 0; width: 100%; height: 100%; }
+  .notch { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 110px; height: 30px; border-radius: 20px; background: #111; z-index: 2; pointer-events: none; }
+  .size { text-align: center; font-size: 12.5px; color: var(--muted); }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <strong>📱 모바일 미리보기</strong>
+    <button data-w="390" data-h="844" class="on">아이폰 (390)</button>
+    <button data-w="360" data-h="780">갤럭시 S (360)</button>
+    <button data-w="412" data-h="915">갤럭시 울트라 (412)</button>
+    <button id="reload">새로고침</button>
+    <a href="./" target="_blank">PC 화면 열기</a>
+  </div>
+  <p class="size" id="size"></p>
+  <div class="stage">
+    <div class="phone" id="phone">
+      <div class="screen" id="screen">
+        <div class="notch"></div>
+        <iframe id="frame" src="./index.html" title="수호세무회계 모바일 화면"></iframe>
+      </div>
+    </div>
+  </div>
+<script>
+  var screen = document.getElementById('screen');
+  var frame = document.getElementById('frame');
+  var size = document.getElementById('size');
+  function setSize(w, h) {
+    // 화면 높이가 작으면 폰 높이를 줄여서 한눈에 보이게
+    var maxH = Math.max(560, window.innerHeight - 130);
+    var hh = Math.min(h, maxH);
+    screen.style.width = w + 'px';
+    screen.style.height = hh + 'px';
+    size.textContent = w + ' × ' + h + 'px · 마우스 휠로 스크롤, 메뉴(≡)도 눌러 보세요';
+  }
+  document.querySelectorAll('.bar button[data-w]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.bar button[data-w]').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+      setSize(+b.dataset.w, +b.dataset.h);
+    });
+  });
+  document.getElementById('reload').addEventListener('click', function () { frame.src = frame.src; });
+  window.addEventListener('resize', function () { var b = document.querySelector('.bar button.on'); setSize(+b.dataset.w, +b.dataset.h); });
+  setSize(390, 844);
+</script>
+</body>
+</html>
