@@ -35,7 +35,7 @@
     "addressRegion": "서울특별시",
     "addressCountry": "KR"
   },
-  "openingHours": "Mo-Fr 09:00-17:00",
+  "openingHours": "Mo-Fr 09:00-18:00",
   "areaServed": ["중랑구", "신내동", "망우동", "묵동", "상봉동", "구리시"]
 }
 </script>
@@ -364,6 +364,8 @@
   .visit dt { font-family: var(--display); font-weight: 600; color: var(--gold); font-size: 14.5px; letter-spacing: .14em; padding-top: 2px; }
   .visit dd .live { margin-top: 6px; font-size: 14px; color: var(--ink); }
   .visit dd a { color: var(--navy); font-weight: 600; }
+  .visit dd b { color: var(--navy); font-weight: 700; }
+  .visit dd .sub { color: var(--muted); font-size: 14.5px; }
   .mapbtns { display: flex; gap: 10px; flex-wrap: wrap; }
   .mapbtns a { padding: 13px 22px; border: 1px solid var(--line); font-size: 14.5px; font-weight: 600; background: var(--white); transition: border-color .2s; }
   .mapbtns a:hover { border-color: var(--deep); }
@@ -573,7 +575,8 @@
     /* 오시는 길 */
     .visit { gap: 32px; }
     .visit dl { margin: 24px 0 26px; }
-    .visit dl div { grid-template-columns: 76px 1fr; font-size: 15px; padding: 14px 0; }
+    .visit dl div { grid-template-columns: 84px 1fr; font-size: 15px; padding: 14px 0; }
+    .visit dt { font-size: 13px; letter-spacing: .1em; }
 
     .cta { padding: 72px 0; }
     .banner { padding: 100px 0; }
@@ -626,7 +629,7 @@
   <div class="m-contact">
     <span class="live"><i></i><span>평일 오전 9시 ~ 오후 5시</span></span><br>
     <a href="tel:024351474">02-435-1474</a><br>
-    평일 오전 9시 ~ 오후 5시 · 상담 무료
+    상담 평일 오전 9시 ~ 오후 5시 · 상가동 지하주차장 2시간 무료
   </div>
 </div>
 
@@ -862,6 +865,10 @@
           <p>네. 자료는 카카오톡이나 이메일로 주고받으면 되기 때문에 지역과 상관없이 진행할 수 있습니다. 중랑구·구리 인근이시면 방문 상담도 편하게 오세요.</p>
         </details>
         <details>
+          <summary>주차할 수 있나요?</summary>
+          <p>네. 상가동 지하주차장에 대시면 2시간 무료입니다. 나가시기 전에 말씀해 주시면 주차 등록을 해 드립니다.</p>
+        </details>
+        <details>
           <summary>신고만 맡기는 것도 되나요?</summary>
           <p>됩니다. 부가가치세, 종합소득세 신고대리만 맡기셔도 됩니다.</p>
         </details>
@@ -876,13 +883,15 @@
         <h2>신내역 수호세무회계</h2>
         <dl>
           <div><dt>ADDRESS</dt><dd>서울특별시 중랑구 용마산로 670<br>신내역 프라디움 더 테라스 A동 110호</dd></div>
+          <div><dt>ACCESS</dt><dd>신내역 1번·4번 출구에서 걸어서 5분<br><span class="sub">A동 1층(밖에서 보면 2층), 에스컬레이터 바로 옆</span></dd></div>
+          <div><dt>PARKING</dt><dd>상가동 지하주차장 <b>2시간 무료</b><br><span class="sub">나가시기 전에 말씀해 주시면 주차 등록해 드립니다</span></dd></div>
           <div><dt>TEL</dt><dd><a href="tel:024351474">02-435-1474</a></dd></div>
           <div><dt>FAX</dt><dd>070-4855-1474</dd></div>
-          <div><dt>HOURS</dt><dd>평일 오전 9시 ~ 오후 5시<br><span class="live"><i></i><span>평일 오전 9시 ~ 오후 5시</span></span><br><span style="color:var(--muted);font-size:14.5px">방문 상담은 예약 후 오시면 기다리지 않으십니다</span></dd></div>
+          <div><dt>HOURS</dt><dd>상담 평일 오전 9시 ~ 오후 5시<br><span class="sub">사무실 운영은 오후 6시까지</span><br><span class="live"><i></i><span>평일 오전 9시 ~ 오후 5시</span></span><br><span class="sub">방문 상담은 예약 후 오시면 기다리지 않으십니다</span></dd></div>
         </dl>
         <div class="mapbtns">
-          <a href="https://map.naver.com/p/search/%EC%88%98%ED%98%B8%EC%84%B8%EB%AC%B4%ED%9A%8C%EA%B3%84" target="_blank" rel="noopener">네이버 지도</a>
-          <a href="https://map.kakao.com/?q=%EC%88%98%ED%98%B8%EC%84%B8%EB%AC%B4%ED%9A%8C%EA%B3%84" target="_blank" rel="noopener">카카오맵</a>
+          <a href="https://map.naver.com/p/entry/place/1759926931" target="_blank" rel="noopener">네이버 지도</a>
+          <a href="https://map.kakao.com/?q=%EC%A4%91%EB%9E%91%EA%B5%AC%20%EC%9A%A9%EB%A7%88%EC%82%B0%EB%A1%9C%20670%20%EC%88%98%ED%98%B8%EC%84%B8%EB%AC%B4%ED%9A%8C%EA%B3%84" target="_blank" rel="noopener">카카오맵</a>
         </div>
       </div>
       <div class="visit-photo reveal from-right">
@@ -917,7 +926,7 @@
     <div class="f-brand"><img src="img/logo-white.png" alt="">수호세무회계</div>
     대표 세무사 김학성 · 사업자등록번호 460-03-03383<br>
     서울특별시 중랑구 용마산로 670, 신내역 프라디움 더 테라스 A동 110호<br>
-    TEL 02-435-1474 · FAX 070-4855-1474 · 평일 09:00 ~ 17:00<br>
+    TEL 02-435-1474 · FAX 070-4855-1474 · 상담 평일 09:00 ~ 17:00 (운영 ~18:00)<br>
     © SUHO TAX ACCOUNTING
   </div>
 </footer>
