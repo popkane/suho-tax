@@ -61,6 +61,8 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+  body { overflow-x: hidden; }
+  @supports (overflow: clip) { body { overflow-x: clip; } }
   ::selection { background: var(--gold-soft); color: var(--deep); }
   .label, .pillar .no, .svc .en, .step .dot, .cal-item .yr, .cal-item .date, .cal-item .dday, .visit dt, .mmenu small, .scroll-cue, .compare .row > div:first-child::before { font-variant-numeric: lining-nums; font-feature-settings: "lnum" 1; }
   body {
@@ -427,6 +429,7 @@
   .reveal.from-left { transform: translateX(-60px); }
   .reveal.from-right { transform: translateX(60px); }
   .reveal.on { opacity: 1; transform: none; }
+  @media (max-width: 960px) { .reveal.from-left, .reveal.from-right { transform: translateY(40px); } .reveal.from-left.on, .reveal.from-right.on { transform: none; } }
   .stagger > * { opacity: 0; transform: translateY(36px); transition: opacity .9s var(--ease), transform 1s var(--ease); }
   .stagger.on > * { opacity: 1; transform: none; transition-delay: calc(var(--i, 0) * 90ms); }
   .svc-list.stagger > * { transform: translateY(24px) scale(.98); }
