@@ -63,6 +63,10 @@
     line-height: 1.7; word-break: keep-all; -webkit-font-smoothing: antialiased;
   }
   a { color: inherit; text-decoration: none; }
+  h1, h2, h3, strong { text-wrap: balance; }
+  p, li, blockquote, .bubble, dd, summary { text-wrap: pretty; }
+  .br-pc { display: inline; }
+  .br-m { display: none; }
   img { max-width: 100%; display: block; }
   .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 24px; }
   section { padding: 120px 0; }
@@ -106,6 +110,30 @@
   header.solid nav a:hover { color: var(--navy); }
   .head-call { font-size: 15px; font-weight: 600; color: #fff; letter-spacing: .02em; }
   header.solid .head-call { color: var(--navy); }
+
+  .burger { display: none; width: 44px; height: 44px; margin-right: -10px; background: none; border: 0; cursor: pointer; position: relative; }
+  .burger span { position: absolute; left: 11px; right: 11px; height: 1.5px; background: #fff; transition: transform .25s, opacity .25s, background .25s; }
+  .burger span:nth-child(1) { top: 15px; } .burger span:nth-child(2) { top: 21px; } .burger span:nth-child(3) { top: 27px; }
+  header.solid .burger span { background: var(--deep); }
+  body.menu-open .burger span { background: #fff; }
+  body.menu-open .burger span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  body.menu-open .burger span:nth-child(2) { opacity: 0; }
+  body.menu-open .burger span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+  .mmenu {
+    position: fixed; inset: 0; z-index: 35; background: var(--deep); color: #fff;
+    padding: 100px 28px 40px; display: flex; flex-direction: column;
+    opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s;
+  }
+  body.menu-open .mmenu { opacity: 1; visibility: visible; }
+  body.menu-open { overflow: hidden; }
+  body.menu-open header { background: transparent !important; border-color: transparent !important; }
+  body.menu-open header .brand { color: #fff !important; }
+  body.menu-open header .logo-dark { display: none !important; }
+  body.menu-open header .logo-light { display: block !important; }
+  .mmenu a.item { display: flex; justify-content: space-between; align-items: baseline; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,.1); font-size: 21px; font-weight: 700; letter-spacing: -.02em; }
+  .mmenu a.item small { font-size: 11px; letter-spacing: .2em; color: var(--gold-soft); font-weight: 600; }
+  .mmenu .m-contact { margin-top: auto; padding-top: 30px; font-size: 14px; color: rgba(255,255,255,.55); line-height: 1.9; }
+  .mmenu .m-contact a { color: #fff; font-size: 20px; font-weight: 700; }
 
   /* ── 버튼 ── */
   .btns { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -243,9 +271,9 @@
   /* ── FAQ ── */
   .faq { margin-top: 56px; border-top: 2px solid var(--deep); max-width: 860px; margin-left: auto; margin-right: auto; }
   .faq details { border-bottom: 1px solid var(--line); }
-  .faq summary { list-style: none; cursor: pointer; padding: 28px 48px 28px 0; position: relative; font-size: 17px; font-weight: 600; }
+  .faq summary { list-style: none; cursor: pointer; padding: 28px 48px 28px 32px; position: relative; font-size: 17px; font-weight: 600; }
   .faq summary::-webkit-details-marker { display: none; }
-  .faq summary::before { content: "Q"; font-family: var(--serif); color: var(--gold); margin-right: 16px; }
+  .faq summary::before { content: "Q"; position: absolute; left: 2px; color: var(--gold); }
   .faq summary::after { content: ""; position: absolute; right: 8px; top: 36px; width: 10px; height: 10px; border-right: 1.5px solid var(--muted); border-bottom: 1.5px solid var(--muted); transform: rotate(45deg); transition: transform .2s; }
   .faq details[open] summary::after { transform: rotate(-135deg); top: 40px; }
   .faq details p { padding: 0 0 28px 32px; color: var(--muted); font-size: 16px; }
@@ -274,6 +302,7 @@
   footer .f-brand img { height: 24px; }
 
   .mbar { display: none; }
+  .swipe-hint { display: none; margin-top: 4px; font-size: 13px; color: var(--muted); text-align: right; }
 
   /* 스크롤 등장 */
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s ease, transform .9s ease; }
@@ -282,7 +311,8 @@
 
   @media (max-width: 960px) {
     section { padding: 84px 0; }
-    nav { display: none; }
+    nav, .head-call { display: none; }
+    .burger { display: block; }
     .hero { padding: 130px 0 90px; }
     .hero-grid, .director, .visit { grid-template-columns: 1fr; gap: 56px; }
     .hero-photo { justify-self: start; max-width: 340px; margin-right: 22px; }
@@ -296,23 +326,101 @@
   }
   @media (max-width: 600px) {
     .wrap { padding: 0 20px; }
-    .head-call { font-size: 14px; }
+    section { padding: 64px 0; }
+    .br-pc { display: none; }
+    .br-m { display: inline; }
+    h2 { font-size: 25px; margin-bottom: 14px; }
+    .label { margin-bottom: 14px; font-size: 11.5px; }
+    .lead { font-size: 15.5px; }
+    header .wrap { height: 64px; }
     .brand .en { display: none; }
-    .hero .btns { display: none; }
-    .svc-list { grid-template-columns: 1fr; }
-    .svc { padding: 32px 26px; }
+
+    /* 히어로: 사진을 작게, 문구 옆으로 */
+    .hero { padding: 104px 0 56px; }
+    .hero-grid { gap: 36px; }
+    .hero h1 { font-size: 34px; margin-bottom: 18px; }
+    .hero .sub { font-size: 15.5px; margin-bottom: 0; }
+    .hero .btns, .hero .note { display: none; }
+    .hero-photo { max-width: 230px; justify-self: end; margin-right: 14px; }
+    .hero-photo::before { inset: 14px -14px -14px 14px; }
+    .hero-photo figcaption { left: -40px; bottom: 18px; padding: 10px 16px; font-size: 12.5px; }
+
+    /* 약속: 번호와 제목 한 줄 */
+    .pillars { margin-top: 36px; }
+    .pillar, .pillar + .pillar { padding: 22px 0; display: grid; grid-template-columns: 34px 1fr; column-gap: 8px; }
+    .pillar .no { margin: 4px 0 0; }
+    .pillar h3 { font-size: 18px; margin-bottom: 6px; }
+    .pillar p { grid-column: 2; font-size: 14.5px; }
+
+    /* 인사말: 사진은 작게 */
+    .director { gap: 40px; }
+    .portrait { max-width: 190px; margin-left: 14px; }
+    .portrait::after { inset: -12px 12px 12px -12px; }
+    .director blockquote { font-size: 15.5px; line-height: 1.85; }
+    .sign { margin-top: 26px; padding-top: 20px; }
+
+    /* 업무: 2열 타일 */
+    .svc-list { grid-template-columns: 1fr 1fr; margin-top: 36px; }
+    .svc { padding: 22px 18px; }
+    .svc .en { font-size: 10px; letter-spacing: .14em; margin-bottom: 8px; }
+    .svc h3 { font-size: 16.5px; margin-bottom: 6px; }
+    .svc p { font-size: 13.5px; line-height: 1.6; }
+
+    /* 질문 말풍선: 옆으로 넘기기 */
+    .asks {
+      columns: auto; display: grid; grid-auto-flow: column; grid-template-rows: repeat(2, auto);
+      grid-auto-columns: 82%; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory;
+      margin: 32px -20px 0; padding: 4px 20px 18px; scroll-padding-inline: 20px; scrollbar-width: none;
+    }
+    .asks::-webkit-scrollbar { display: none; }
+    .ask { margin: 0; scroll-snap-align: start; display: flex; flex-direction: column; }
+    .ask .bubble { flex: 1; font-size: 15px; padding: 16px 18px; }
+    .swipe-hint { display: block; }
+    .ask-cta { margin-top: 18px; padding: 24px 22px; }
+    .ask-cta strong { font-size: 18px; }
+    .ask-cta .btn { width: 100%; }
+
+    /* 기장 맡기면 */
+    .compare { margin-top: 30px; }
     .compare .row { grid-template-columns: 1fr; }
-    .compare .row > div { padding: 6px 0; }
-    .compare .row > div:first-child { padding-top: 24px; }
-    .compare .row > div:last-child { padding-bottom: 24px; }
-    .price-card { padding: 38px 28px; }
-    .steps { grid-template-columns: 1fr; }
-    .asks { columns: 1; }
-    .ask-cta { padding: 28px 24px; }
-    .visit dl div { grid-template-columns: 80px 1fr; }
+    .compare .row > div { padding: 4px 0; }
+    .compare .row > div:first-child { padding-top: 18px; font-size: 17px; }
+    .compare .row > div:last-child { padding-bottom: 18px; font-size: 14.5px; }
+
+    /* 보수 */
+    .price { margin-top: 32px; gap: 16px; }
+    .price-card { padding: 30px 22px 24px; }
+    .price-card::before { left: 22px; }
+    .price-card .amount { font-size: 32px; margin: 8px 0 14px; }
+    .price-card li { font-size: 14px; padding: 9px 0; }
+    .price-card li.inc::before { top: 16px; }
+
+    /* 진행 과정: 2x2 */
+    .steps { grid-template-columns: 1fr 1fr; gap: 26px 16px; margin-top: 34px; }
+    .step { padding-right: 0; }
+    .step .dot { width: 40px; height: 40px; font-size: 14px; margin-bottom: 14px; }
+    .step h3 { font-size: 16px; }
+    .step p { font-size: 13.5px; }
+
+    /* FAQ */
+    .faq { margin-top: 30px; }
+    .faq summary { font-size: 15.5px; padding: 20px 36px 20px 28px; }
+    .faq summary::after { top: 26px; }
+    .faq details[open] summary::after { top: 30px; }
+    .faq details p { font-size: 14.5px; padding-left: 28px; }
+
+    /* 오시는 길 */
+    .visit { gap: 32px; }
+    .visit dl { margin: 24px 0 26px; }
+    .visit dl div { grid-template-columns: 76px 1fr; font-size: 15px; padding: 14px 0; }
+
+    .cta { padding: 72px 0; }
+    .cta .btns { display: none; }
+    footer { padding: 40px 0 110px; font-size: 12.5px; }
+
     .mbar {
       display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-      position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
       padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
       background: rgba(255,255,255,.97); border-top: 1px solid var(--line);
     }
@@ -337,8 +445,22 @@
       <a href="#visit">오시는 길</a>
     </nav>
     <a class="head-call" href="tel:024351474">02-435-1474</a>
+    <button class="burger" id="burger" aria-label="메뉴 열기" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
+
+<div class="mmenu" id="mmenu">
+  <a class="item" href="#why">수호의 약속 <small>PROMISE</small></a>
+  <a class="item" href="#director">대표 세무사 <small>GREETING</small></a>
+  <a class="item" href="#service">업무 안내 <small>SERVICES</small></a>
+  <a class="item" href="#ask">자주 받는 질문 <small>QUESTIONS</small></a>
+  <a class="item" href="#price">보수 안내 <small>FEE</small></a>
+  <a class="item" href="#visit">오시는 길 <small>LOCATION</small></a>
+  <div class="m-contact">
+    <a href="tel:024351474">02-435-1474</a><br>
+    평일 오전 9시 ~ 오후 5시 · 상담 무료
+  </div>
+</div>
 
 <main id="top">
 
@@ -347,7 +469,7 @@
       <div>
         <div class="loc">서울특별시 중랑구 신내동 · 신내역</div>
         <h1>세무는 맡기시고,<br><em>사업에 집중</em>하세요.</h1>
-        <p class="sub">사업의 시작부터 성장까지, 세무의 모든 순간을 함께합니다. 실무 경력자가 직접 장부를 보고, 전화하시면 담당자가 바로 받습니다.</p>
+        <p class="sub">사업의 시작부터 성장까지,<br class="br-m"> 세무의 모든 순간을 함께합니다.<br> 실무 경력자가 직접 장부를 보고,<br class="br-m"> 전화하시면 담당자가 바로 받습니다.</p>
         <div class="btns">
           <a class="btn btn-gold" href="tel:024351474">전화 상담 02-435-1474</a>
           <a class="btn btn-ghost" href="【카카오톡채널 채팅 링크】" target="_blank" rel="noopener">카카오톡 상담</a>
@@ -366,7 +488,7 @@
       <div class="reveal">
         <div class="label">Our Promise</div>
         <h2>싼 곳은 많습니다.<br>챙겨주는 곳은 드뭅니다.</h2>
-        <p class="lead">월 몇만 원짜리 기장은 대부분 프로그램이 자동으로 처리합니다. 수호세무회계는 사람이 직접 봅니다.</p>
+        <p class="lead">월 몇만 원짜리 기장은 대부분<br class="br-m"> 프로그램이 자동으로 처리합니다.<br> 수호세무회계는 사람이 직접 봅니다.</p>
       </div>
       <div class="pillars reveal">
         <div class="pillar">
@@ -397,8 +519,8 @@
         <div class="label">Greeting</div>
         <h2>안녕하세요, 대표님.</h2>
         <blockquote>
-          <p>수호세무회계는 소상공인과 개인사업자의 사업을 이해하고,<br>기장부터 세금 신고까지 필요한 세무 관리를 함께합니다.</p>
-          <p>매출과 비용, 증빙, 인건비 등 사업을 운영하며 놓치기 쉬운 부분을 꼼꼼히 살피고,<br>대표님이 본업에 집중할 수 있도록 실질적인 세무 서비스를 제공하겠습니다.</p>
+          <p>수호세무회계는 소상공인과 개인사업자의 사업을 이해하고,<br class="br-pc"> 기장부터 세금 신고까지 필요한 세무 관리를 함께합니다.</p>
+          <p>매출과 비용, 증빙, 인건비 등 사업을 운영하며 놓치기 쉬운 부분을 꼼꼼히 살피고,<br class="br-pc"> 대표님이 본업에 집중할 수 있도록 실질적인 세무 서비스를 제공하겠습니다.</p>
           <p>세무에 궁금한 점이 생겼을 때, 언제든 편하게 찾아 주시기 바랍니다.</p>
         </blockquote>
         <div class="sign"><span>대표 세무사</span><strong>김학성</strong></div>
@@ -427,8 +549,8 @@
     <div class="wrap">
       <div class="head-center reveal">
         <div class="label">Real Questions</div>
-        <h2>사장님들이 가장 많이 묻는 질문</h2>
-        <p class="lead">상담 때 자주 듣는 고민들입니다. 비슷한 고민이 있으시다면, 혼자 검색하지 말고 물어보세요.</p>
+        <h2>사장님들이<br class="br-m"> 가장 많이 묻는 질문</h2>
+        <p class="lead">상담 때 자주 듣는 고민들입니다.<br class="br-m"> 비슷한 고민이 있으시다면,<br class="br-pc"> 혼자 검색하지 말고 물어보세요.</p>
       </div>
       <div class="asks reveal">
         <div class="ask"><div class="who"><i>식</i>음식점 운영 · 개인사업자</div><div class="bubble">작년에 종소세 직접 신고했는데 세금이 생각보다 너무 많이 나왔어요. 제가 뭘 놓친 걸까요?</div></div>
@@ -442,10 +564,11 @@
         <div class="ask"><div class="who"><i>사</i>개인사업자 · 기장 이용 중</div><div class="bubble">지금 맡긴 세무사무실이 연락이 잘 안 돼요. 중간에 옮겨도 괜찮을까요?</div></div>
         <div class="ask"><div class="who"><i>창</i>창업 준비 중</div><div class="bubble">곧 가게를 여는데 간이과세랑 일반과세 중에 뭘로 시작하는 게 유리한가요?</div></div>
       </div>
+      <p class="swipe-hint">옆으로 넘겨 더 보기 →</p>
       <div class="ask-cta reveal">
         <div>
           <strong>비슷한 고민, 무료로 점검해 드립니다</strong>
-          <span>세무사무실을 옮기실 때 이전 사무실 자료 이관도 도와드립니다.</span>
+          <span>세무사무실을 옮기실 때<br class="br-m"> 이전 사무실 자료 이관도 도와드립니다.</span>
         </div>
         <a class="btn btn-gold" href="【카카오톡채널 채팅 링크】" target="_blank" rel="noopener">무료 점검 받기</a>
       </div>
@@ -457,7 +580,7 @@
       <div class="reveal">
         <div class="label">Why Bookkeeping</div>
         <h2>기장을 맡기면<br>무엇이 달라질까요?</h2>
-        <p class="lead">복잡한 세무 업무를 혼자 고민하는 대신, 사업에 필요한 부분을 체계적으로 관리할 수 있습니다.</p>
+        <p class="lead">복잡한 세무 업무를 혼자 고민하는 대신,<br> 사업에 필요한 부분을 체계적으로 관리할 수 있습니다.</p>
       </div>
       <div class="compare reveal">
         <div class="row"><div data-no="01">매출 관리</div><div>카드·현금·계좌이체로 흩어진 매출 자료를 정리하고 정확하게 확인합니다.</div></div>
@@ -497,7 +620,7 @@
           </ul>
         </div>
       </div>
-      <p class="fine" style="text-align:center">기장 고객은 종합소득세 조정료를 일반 신고대리보다 낮은 우대 요율로 적용해 드립니다.<br>표시 금액은 부가가치세 별도이며, 정확한 금액은 무료 상담 후 안내드립니다.</p>
+      <p class="fine" style="text-align:center">기장 고객은 종합소득세 조정료를 일반 신고대리보다<br class="br-m"> 낮은 우대 요율로 적용해 드립니다.<br>표시 금액은 부가가치세 별도이며,<br class="br-m"> 정확한 금액은 무료 상담 후 안내드립니다.</p>
     </div>
   </section>
 
@@ -506,7 +629,7 @@
       <div class="reveal">
         <div class="label">Process</div>
         <h2>상담부터 관리까지</h2>
-        <p class="lead">처음 맡기시는 분도 어렵지 않게, 네 단계로 진행됩니다.</p>
+        <p class="lead">처음 맡기시는 분도 어렵지 않게,<br class="br-m"> 네 단계로 진행됩니다.</p>
       </div>
       <div class="steps reveal">
         <div class="step"><div class="dot">01</div><h3>현재 상황 확인</h3><p>전화·카카오톡·방문 무료 상담으로 사업 형태와 매출·비용 구조를 파악합니다.</p></div>
@@ -606,6 +729,15 @@
     function onScroll() { hd.classList.toggle('solid', window.scrollY > 40); }
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
+
+    // 모바일 메뉴
+    var burger = document.getElementById('burger');
+    function setMenu(open) {
+      document.body.classList.toggle('menu-open', open);
+      burger.setAttribute('aria-expanded', open);
+    }
+    burger.addEventListener('click', function () { setMenu(!document.body.classList.contains('menu-open')); });
+    document.querySelectorAll('#mmenu a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
 
     // 스크롤 등장 효과
     var els = document.querySelectorAll('.reveal');
