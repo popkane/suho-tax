@@ -305,6 +305,8 @@
   .price-card li.inc { color: var(--ink); padding-left: 26px; position: relative; }
   .price-card li.inc::before { content: ""; position: absolute; left: 3px; top: 17px; width: 10px; height: 5px; border-left: 2px solid var(--gold); border-bottom: 2px solid var(--gold); transform: rotate(-45deg); }
   .price-card li b { font-weight: 700; color: var(--navy); }
+  .price-card.wide { grid-column: 1 / -1; }
+  .price-card.wide ul { display: grid; grid-template-columns: 1fr 1fr; column-gap: 40px; }
   .price-card .tag { display: inline-block; margin-left: 6px; font-size: 12px; font-weight: 700; color: var(--gold); border: 1px solid var(--gold-soft); padding: 1px 8px; border-radius: 20px; vertical-align: 1px; }
   .fine { font-size: 13.5px; color: var(--muted); margin-top: 22px; }
 
@@ -464,6 +466,7 @@
     .pillar, .pillar + .pillar { padding: 34px 0; border-left: 0; border-bottom: 1px solid var(--line); }
     .svc-list { grid-template-columns: 1fr 1fr; }
     .price { grid-template-columns: 1fr; }
+    .price-card.wide ul { grid-template-columns: 1fr; }
     .steps { grid-template-columns: 1fr 1fr; gap: 40px 0; }
     .steps::before, .steps::after { display: none; }
     .scroll-cue { display: none; }
@@ -798,6 +801,18 @@
             <li class="inc">신고 전 누락 경비·공제 항목 검토</li>
             <li>수수료는 자료 상태와 업종에 따라 달라집니다</li>
             <li>기장으로 전환하시면 <b>우대 조정료</b>가 적용됩니다</li>
+          </ul>
+        </div>
+        <div class="price-card wide">
+          <h3>그 밖의 세무 업무</h3>
+          <div class="amount">업무별 문의<small>상담 후 안내</small></div>
+          <ul>
+            <li class="inc"><b>경정청구</b> 지난 신고에서 더 낸 세금 돌려받기</li>
+            <li class="inc"><b>양도소득세</b> 부동산 · 분양권 양도 신고</li>
+            <li class="inc"><b>상속세 · 증여세</b> 신고 및 사전 상담</li>
+            <li class="inc">그 밖의 세무 신고 · 상담</li>
+            <li>재산 규모와 자료 상태에 따라 비용이 달라집니다</li>
+            <li>전화 · 카카오톡으로 먼저 상황을 말씀해 주세요</li>
           </ul>
         </div>
       </div>
