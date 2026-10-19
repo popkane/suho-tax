@@ -3,3 +3,4 @@ Allow: /
 Disallow: /mobile.html
 
 Sitemap: https://suhotax.co.kr/sitemap.xml
+#DaumWebMasterTool:99a4154b0ea31f554bf6ad0e652dc0d0f087f20abcffd2b15623886895d7b1d7:1T0ZRs6bn/unEVfM5aXupg==
