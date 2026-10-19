@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /mobile.html
+
+Sitemap: https://suhotax.co.kr/sitemap.xml
