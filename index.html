@@ -436,6 +436,13 @@
   .fab-pop img { width: 132px; height: 132px; margin: 0 auto 14px; }
   .fab-pop b { display: block; font-size: 14.5px; color: var(--deep); margin-bottom: 4px; }
   .fab-pop span { display: block; font-size: 12.5px; line-height: 1.6; color: var(--muted); }
+  .fab-pop::after { content: ""; position: absolute; left: 0; right: 0; bottom: -16px; height: 16px; }
+  .fab-pc { display: block; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .fab-pc a {
+    display: block; height: 40px; line-height: 40px; font-size: 13.5px; font-weight: 600;
+    background: var(--kakao); color: #191919; text-decoration: none; transition: filter .2s;
+  }
+  .fab-pc a:hover { filter: brightness(.95); }
   @media (max-width: 960px) { .qr-card, .fab { display: none; } }
 
   /* 스크롤 등장 (들어오면 나타나고, 나가면 되돌아감) */
@@ -978,6 +985,7 @@
     <img src="img/qr-kakao.svg" alt="카카오톡 상담 QR 코드" width="132" height="132">
     <b>휴대폰으로 상담하기</b>
     <span>카메라로 비추면<br>카카오톡 상담창이 열립니다</span>
+    <div class="fab-pc"><a href="https://pf.kakao.com/_kbxkUn/chat" target="_blank" rel="noopener">PC에서 바로 상담하기</a></div>
   </div>
 </div>
 
