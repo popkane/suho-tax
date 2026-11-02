@@ -140,6 +140,7 @@ nav a:hover, nav a.on { color: var(--deep); border-color: var(--gold); }
 footer { background: #070a1c; color: rgba(255,255,255,.5); font-size: 13.5px; padding: 50px 0 110px; line-height: 2; }
 footer .f-brand { display: flex; align-items: center; gap: 12px; color: #fff; margin-bottom: 16px; font-weight: 700; font-size: 17px; }
 footer .f-brand img { height: 24px; }
+footer .f-privacy { color: rgba(255,255,255,.85); font-weight: 700; }
 .note-box { margin-top: 26px; padding: 18px 22px; background: var(--mist); font-size: 14.5px; color: #3a3f4c; }
 .mbar { display: none; }
 
